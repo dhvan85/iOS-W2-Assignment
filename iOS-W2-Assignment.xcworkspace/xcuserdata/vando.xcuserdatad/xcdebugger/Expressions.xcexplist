@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "BusinessViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:BusinessViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "businesses">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
