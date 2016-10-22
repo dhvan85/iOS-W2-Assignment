@@ -16,8 +16,8 @@ class BusinessViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadBusinessTableView()
         initBusinessTableView()
+        loadBusinessData()
         
         // Example of Yelp search with more search options specified
         /*
@@ -37,9 +37,12 @@ class BusinessViewController: UIViewController, UITableViewDataSource, UITableVi
     private func initBusinessTableView() {
         businessTableView.dataSource = self
         businessTableView.delegate = self
+        
+        businessTableView.estimatedRowHeight = 110
+        businessTableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    private func loadBusinessTableView(){
+    private func loadBusinessData(){
         Business.search(with: "Thai") { (businesses: [Business]?, error: Error?) in
             if let businesses = businesses {
                 self.businesses = businesses
