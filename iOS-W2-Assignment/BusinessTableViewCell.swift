@@ -25,8 +25,13 @@ class BusinessTableViewCell: UITableViewCell {
             addressLabel.text = business.address
             categoryLabel.text = business.categories
             
-            thumbImageView.setImageWith(business.imageURL!)
-            starImageView.setImageWith(business.ratingImageURL!)
+            if (business.imageURL != nil) {
+                thumbImageView.setImageWith(business.imageURL!)
+            }
+            
+            if (business.ratingImageURL != nil) {
+                starImageView.setImageWith(business.ratingImageURL!)
+            }
             
             reviewLabel.text = String(describing: business.reviewCount?.intValue ?? 0) + ((business.reviewCount?.intValue)! > 1 ? " reviews" : " review")
         }

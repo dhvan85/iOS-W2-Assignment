@@ -113,7 +113,7 @@
                     <navigationItem key="navigationItem" id="ffO-x5-rwt">
                         <barButtonItem key="leftBarButtonItem" title="Filter" style="done" id="5sA-fJ-pV6">
                             <connections>
-                                <segue destination="Pff-el-RHp" kind="push" id="uIf-w2-vA8"/>
+                                <segue destination="Pff-el-RHp" kind="push" identifier="FromFilterButton" id="uIf-w2-vA8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -129,19 +129,23 @@
         <scene sceneID="2fV-FX-2Vb">
             <objects>
                 <tableViewController id="Pff-el-RHp" customClass="FilterTableViewController" customModule="iOS_W2_Assignment" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="18" sectionFooterHeight="18" id="MX7-0J-adI">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="48" sectionHeaderHeight="18" sectionFooterHeight="18" id="MX7-0J-adI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="48" id="p82-5K-Qfp" customClass="SwitchTableViewCell" customModule="iOS_W2_Assignment" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="48" id="p82-5K-Qfp" customClass="SwitchTableViewCell" customModule="iOS_W2_Assignment" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="120" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p82-5K-Qfp" id="rz4-Wa-Ld8">
                                     <frame key="frameInset" width="320" height="47"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPc-zx-FRt"/>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPc-zx-FRt">
+                                            <connections>
+                                                <action selector="onSwitchChanged:" destination="p82-5K-Qfp" eventType="valueChanged" id="Odn-9v-uzX"/>
+                                            </connections>
+                                        </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjC-kB-o1V">
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
@@ -163,7 +167,7 @@
                                     <outlet property="titleLabel" destination="gjC-kB-o1V" id="QI9-8d-nJF"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckCell" rowHeight="48" id="Bz7-jL-fyW" customClass="CheckTableViewCell" customModule="iOS_W2_Assignment" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CheckCell" rowHeight="48" id="Bz7-jL-fyW" customClass="CheckTableViewCell" customModule="iOS_W2_Assignment" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="168" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bz7-jL-fyW" id="L96-nP-qPV">
@@ -203,7 +207,18 @@
                             <outlet property="delegate" destination="Pff-el-RHp" id="kpw-WH-SZ9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="D9b-f0-hFh"/>
+                    <navigationItem key="navigationItem" id="CWy-X5-SF9">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PFB-pr-esK">
+                            <connections>
+                                <action selector="onCancel:" destination="Pff-el-RHp" id="lOM-2I-19w"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vgl-FH-R4w">
+                            <connections>
+                                <action selector="onSaving:" destination="Pff-el-RHp" id="xeN-7x-1Xi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S8h-KA-FxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

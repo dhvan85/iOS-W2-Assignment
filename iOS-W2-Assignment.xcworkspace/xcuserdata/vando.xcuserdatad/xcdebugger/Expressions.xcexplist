@@ -3,10 +3,54 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "BusinessViewController.loadBusinessData() -&gt; ():BusinessViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "FilterSettings.instance">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FilterTableViewController.onSaving(AnyObject) -&gt; ():FilterTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dealSwitch">
+            </PersistentString>
+            <PersistentString
+               value = "distanceSwitches">
+            </PersistentString>
+            <PersistentString
+               value = "FilterSettings.instance.dealSwitch">
+            </PersistentString>
+            <PersistentString
+               value = "FilterSettings.instance">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "YelpClient.search(with : String, sort : YelpSortMode?, distance : Double?, categories : [String]?, deals : Bool?, completion : ([Business]?, Error?) -&gt; ()) -&gt; AFHTTPRequestOperation:YelpClient.swift">
+      </ContextState>
+      <ContextState
          contextName = "BusinessViewController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:BusinessViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "businesses">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FilterTableViewController.viewDidLoad() -&gt; ():FilterTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dealSwitch">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SwitchTableViewCell.onSwitchChanged(AnyObject) -&gt; ():SwitchTableViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

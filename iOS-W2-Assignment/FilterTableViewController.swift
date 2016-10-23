@@ -8,34 +8,61 @@
 
 import UIKit
 
-class FilterTableViewController: UIViewController {
+@objc protocol FilterTableViewControllerDelegate {
+    @objc optional func settingChanged (_ sender: FilterTableViewController)
+}
 
-   
+class FilterTableViewController: UIViewController {
     /*
      4 section:
-     - Deal : 1 - SwitchCell
-     - Sort: 3 - CheckCell -> exclusive
-     - Distance: 1- SwitchCell ->> 4 - CheckCell exclusive
-     - Category: 1-switchcell ->> 10 - CheckCell - multi check
- */
-    let sectionNames = ["", "Sort", "Distance", "Category"]
-    let sortNames = ["Best Match", "Distance", "Highest Rated"]
-    let distanceNames = ["0.5 mile", "1 mile", "5 miles", "10 miles"]
-    let categoryNames = [["title":"Hotels", "alias":"hotels"],
-                         ["title":"Restaurants", "alias":"restaurants"],
-                         ["title": "Home Services", "alias": "homeservices"],
-                         ["title": "Doctors", "alias": "physicias"],
-                         ["title": "Psychologists", "alias": "psychologists"]
-    ]
+     - Deal : 1-SwitchCell
+     - Sort: 3-CheckCell - exlusive check
+     - Distance: 1-SwitchCell ->> 4-CheckCell - exclusive check
+     - Category: 1-switchcell ->> 5-CheckCell - multi check
+     */
     
-    var sortSwitches = [true, false, false]
-    var distanceSwitches = [false, false, false, false]
-    var categorySwitches = [false, false, false, false, false]
-    var dealSwitch = false
+    var sectionNames: [String]!
+    var sortNames: [String]!
+    var distanceNames: [String]!
+    var categoryNames: [Dictionary<String,String>]!
+    
+    
+    var sortSwitches: [Bool]!
+    var distanceSwitches: [Bool]!
+    var categorySwitches: [Bool]!
+    var dealSwitch: Bool!
+    weak var delegate: FilterTableViewControllerDelegate?
+    
+    @IBAction func onSaving(_ sender: AnyObject) {
+        FilterSettings.instance.dealSwitch = dealSwitch
+        FilterSettings.instance.sortSwitches = sortSwitches
+        FilterSettings.instance.distanceSwitches = distanceSwitches
+        FilterSettings.instance.categorySwitches = categorySwitches
+        
+        delegate?.settingChanged?(self)
+        
+        _ = navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onCancel(_ sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        sectionNames = FilterSettings.instance.sectionNames
+        sortNames = FilterSettings.instance.sortNames
+        distanceNames = FilterSettings.instance.distanceNames
+        categoryNames = FilterSettings.instance.categoryNames
+        
+        sortSwitches = FilterSettings.instance.sortSwitches
+        distanceSwitches = FilterSettings.instance.distanceSwitches
+        categorySwitches = FilterSettings.instance.categorySwitches
+        dealSwitch = FilterSettings.instance.dealSwitch
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -73,6 +100,7 @@ extension FilterTableViewController: UITableViewDataSource, UITableViewDelegate 
             let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell") as! SwitchTableViewCell
             cell.titleLabel.text = "Offering a Deal"
             cell.enableSwitch.isOn = dealSwitch
+            cell.delegate = self
             return cell
             
         case 1:
@@ -109,24 +137,34 @@ extension FilterTableViewController: UITableViewDataSource, UITableViewDelegate 
         return CGFloat(0)
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
-//        let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
-//        
-//        textLabel.text = sectionNames[section]
-//        header.backgroundColor = UIColor.lightGray
-//        
-//        header.addSubview(textLabel)
-//        return header
-//    }
-    /*
-     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            for index in 0..<sortSwitches.count {
+                sortSwitches[index] = false
+            }
+            
+            sortSwitches[indexPath.row] = true
+            break
+        case 2:
+            for index in 0..<distanceSwitches.count {
+                distanceSwitches[index] = false
+            }
+            
+            distanceSwitches[indexPath.row] = true
+            break
+        case 3:
+            categorySwitches[indexPath.row] = !categorySwitches[indexPath.row]
+        default:
+            break
+        }
+        
+        tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
     }
-    */
+}
+
+extension FilterTableViewController: SwitchTableViewCellDelegate {
+    func switchChanged(_ sender: SwitchTableViewCell) {
+        dealSwitch = sender.enableSwitch.isOn
+    }
 }
